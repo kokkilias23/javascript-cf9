@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios POST Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.6/dist/axios.min.js"></script>
+</head>
+<body>
+
+    <h1>Axios POST Example</h1>
+    <button type="button" onclick="createPost()">Create Post</button>
+    <p id="responseText"></p>
+
+    <script>
+        const payload = {
+            userId: 1, 
+            title: 'Coding Factory',
+            body: 'Coding Factory is a great place to learn coding!',
+        }
+
+        // auto stringifies the payload to JSON and sets the Content-Type header to application/json
+        axios.post('https://jsonplaceholder.typicode.com/posts', payload)
+        .then(response => {
+            document.getElementById('responseText').textContent = `Post created with ID: ${response.data.id},
+                                            Title: ${response.data.title}, Body: ${response.data.body}`;
+        })
+        .catch(error => {
+            document.getElementById('responseText').textContent = `Error: ${error.message}`;
+            console.error('Error creating post:', error.message);
+
+            document.getElementById('responseText').textContent = `Error: ${grLocalizations[response?.data?.errorCode]}`;
+            
+        });
+
+
+        const grLocalizations = {
+            PostNotFound: "To post δεν βρέθηκε",
+            PostAlreadyExists: "Το post υπάρχει ήδη",
+        }
+
+    </script>
+    
+</body>
+</html>
