@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fetch API GET Example</h1>
+    <button type="button" onclick="fetchOnePost()">Fetch One Post</button>
+    <p id="responseText"></p>
+
+    <script>
+        function fetchOnePost() {
+            fetch('https://jsonplaceholder.typicode.com/posts/2')
+            .then(response => {
+                if (!response.ok) { // όλα τα 2xx responses
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();     // promise is returned - parse JSON response into JavaScript object
+            })
+            .then(data => {
+                document.getElementById('responseText').textContent = `Title: ${data.title} 
+                                                                       Body: ${data.body}`;
+            })
+            .catch(error => {       // network errors, custom errors, και οποιδήποτε error προκύψει στα προηγούμενο then
+                document.getElementById('responseText').textContent = `Error: ${error.message}`;
+            });
+        }
+            
+    </script>
+</body>
+</html>
